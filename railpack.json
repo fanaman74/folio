@@ -1,0 +1,4 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "deploy": { "aptPackages": ["...", "ffmpeg", "libreoffice-writer", "libreoffice-calc", "libreoffice-impress", "pandoc", "poppler-utils", "fonts-dejavu-core", "fonts-liberation"] }
+}
