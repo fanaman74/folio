@@ -20,11 +20,11 @@ Images and structured data work immediately. Native engines are detected from `P
 
 1. Push this repository to GitHub and create a Railway service from that repository.
 2. Keep the service root at the repository root. Railway reads `railway.json` and builds with Railpack.
-3. `railpack.json` installs FFmpeg, LibreOffice Writer/Calc/Impress, Pandoc, Poppler and fonts at runtime. Build is `npm run build`; start is `npm start`; health check is `/health`. Railway supplies `PORT`.
+3. `railpack.json` installs FFmpeg, LibreOffice Writer/Calc/Impress, Poppler and fonts through Apt, plus the official Pandoc 3.8.3 binary through Mise. The official binary embeds its data files, which is required for sandboxed DOCX/EPUB conversions; Debian's Pandoc package does not. Build is `npm run build`; start is `npm start`; health check is `/health`. Railway supplies `PORT`.
 4. Set `NODE_ENV=production`. Optionally set `RETENTION_MINUTES` to a number from 1 to 60 (default 15).
 5. Use one service replica, no persistent volume, and no database. Generate a Railway domain and verify `/health` and `/api/capabilities` after the first deployment.
 
-The application has not been deployed to a Railway account from this workspace. Railpack configuration follows the [official package installation guide](https://railpack.com/guides/installing-packages/); Railway's [configuration reference](https://docs.railway.com/config-as-code/reference) describes the service settings.
+Railpack configuration follows the [official package installation guide](https://railpack.com/guides/installing-packages/); Railway's [configuration reference](https://docs.railway.com/config-as-code/reference) describes the service settings. Pandoc documents the embedded-data requirement for sandboxed writers in its [user guide](https://pandoc.org/MANUAL.html#general-options).
 
 ## Conversion coverage
 
@@ -81,9 +81,10 @@ npm test
 npm run build
 npx playwright install chromium
 npm run test:browser
+npm run test:deployment -- https://YOUR-SERVICE.up.railway.app
 ```
 
-Integration tests verify real image/data/audio conversions, folder-preserving ZIPs, collision handling, partial errors, streaming upload limits, traversal rejection, XML entity rejection, discard and physical file deletion. Browser tests run desktop and mobile file selection, format selection, conversion, downloads, unsupported-file handling and help/privacy flows. Native Office, e-book and PDF text extraction adapters require their binaries and must also be smoke-tested on the deployed Linux service.
+Integration tests verify real image/data/audio conversions, folder-preserving ZIPs, collision handling, partial errors, streaming upload limits, traversal rejection, XML entity rejection, discard and physical file deletion. Browser tests run desktop and mobile file selection, format selection, conversion, downloads, unsupported-file handling and help/privacy flows. The deployment smoke test uploads synthetic files to verify image, data, Office, e-book, PDF text extraction and media conversions on Railway, downloads and checks their results, and confirms the batch is no longer accessible after download.
 
 ## Extend the backend
 
