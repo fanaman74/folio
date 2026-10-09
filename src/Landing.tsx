@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, MouseEvent, ReactNode } from 'react';
 import { ArrowRight, BookOpen, Check, Database, FileText, Film, FolderOpen, Image, Layers2, LockKeyhole, Music2, ShieldCheck, SlidersHorizontal, Table2, Upload, ArrowDownToLine } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import HeroPolygons from './HeroPolygons';
 
 const families: { icon: LucideIcon; title: string; text: string; formats: string }[] = [
   { icon: Image, title: 'Images', text: 'Resize nothing, lose nothing. Switch photos and graphics in one pass.', formats: 'JPG · PNG · WebP · AVIF · TIFF · GIF' },
@@ -137,6 +138,7 @@ export default function Landing() {
 
     <main>
       <section className="hero">
+        <HeroPolygons />
         <p className="eyebrow intro-fade"><span className="pulse" /> Private by design · no account needed</p>
         <h1 aria-label="Your files. A fresh format."><span className="line"><Words text="Your files." /></span><span className="line"><Words text="A fresh format." start={260} accent="fresh" /></span></h1>
         <p className="hero-copy intro-fade" style={{ '--delay': '700ms' } as CSSProperties}>Drop in one file or a whole folder, pick what it should become, and download the result. Folio converts on its own server and clears everything when you are done.</p>
