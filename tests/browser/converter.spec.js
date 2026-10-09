@@ -7,7 +7,7 @@ import JSZip from 'jszip';
 test('upload, per-file format, real conversion, download and cleared state', async ({ page }, testInfo) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('/');
+  await page.goto('/convert');
   await expect(page.getByRole('button', { name: 'Choose files', exact: true })).toBeEnabled();
   await page.screenshot({ path: `test-results/${testInfo.project.name}-empty.png`, fullPage: true, animations: 'disabled' });
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', await page.locator('body').evaluate(element => element.clientWidth));
@@ -33,7 +33,7 @@ test('a real folder selection converts nested files and downloads their paths in
   await writeFile(join(directory, 'one.csv'), 'name,value\nAlpha,1\n');
   await writeFile(join(directory, 'nested', 'two.csv'), 'name,value\nBeta,2\n');
   try {
-    await page.goto('/');
+    await page.goto('/convert');
     await expect(page.getByRole('button', { name: 'Choose files', exact: true })).toBeEnabled();
     await page.getByRole('button', { name: 'Folder', exact: true }).click();
     await page.getByLabel('Choose folder to convert').setInputFiles(directory);
@@ -53,7 +53,7 @@ test('a real folder selection converts nested files and downloads their paths in
 });
 
 test('folder picker, unsupported files, formats search, help and privacy', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/convert');
   await page.getByRole('button', { name: 'Folder', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Choose folder', exact: true })).toBeVisible();
   await expect(page.getByLabel('Choose folder to convert')).toHaveAttribute('webkitdirectory', '');
@@ -72,4 +72,17 @@ test('folder picker, unsupported files, formats search, help and privacy', async
   await expect(page.getByRole('heading', { name: 'Your files are only here to be converted.' })).toBeVisible();
   await page.getByRole('button', { name: 'A little less file friction.' }).click();
   await expect(page.getByRole('heading', { name: 'Bring your files' })).toBeVisible();
+});
+
+test('intro page leads into the converter', async ({ page }, testInfo) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await expect(page.getByRole('heading', { level: 1, name: 'Your files. A fresh format.' })).toBeVisible();
+  await expect(page.locator('body')).toHaveJSProperty('scrollWidth', await page.locator('body').evaluate(element => element.clientWidth));
+  await page.screenshot({ path: `test-results/${testInfo.project.name}-intro.png`, animations: 'disabled' });
+  await page.getByRole('link', { name: 'Start converting' }).click();
+  await expect(page).toHaveURL(/\/convert$/);
+  await expect(page.getByRole('button', { name: 'Choose files', exact: true })).toBeEnabled();
+  expect(errors).toEqual([]);
 });

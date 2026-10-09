@@ -12,7 +12,7 @@ npm run build
 npm start
 ```
 
-Open http://localhost:3001. For development with live updates, use `npm run dev` and open http://localhost:5173.
+Open http://localhost:3001 for the intro page, or http://localhost:3001/convert for the converter. For development with live updates, use `npm run dev` and open http://localhost:5173.
 
 Images and structured data work immediately. Native engines are detected from `PATH`. To enable media in the local preview using the test binary installed with the development dependencies, create `.env` with `FFMPEG_PATH` pointing to `node_modules/ffmpeg-static/ffmpeg.exe` on Windows, or its `ffmpeg` binary on Linux/macOS. Optional overrides are listed in `.env.example`. Do not copy a Windows executable path into Railway variables.
 
