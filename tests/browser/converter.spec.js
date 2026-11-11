@@ -74,15 +74,28 @@ test('folder picker, unsupported files, formats search, help and privacy', async
   await expect(page.getByRole('heading', { name: 'Bring your files' })).toBeVisible();
 });
 
-test('intro page leads into the converter', async ({ page }, testInfo) => {
+test('documents page converts a document to PDF and links to everything else', async ({ page }, testInfo) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1, name: 'Your files. A fresh format.' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Any document. One clean PDF.' })).toBeVisible();
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', await page.locator('body').evaluate(element => element.clientWidth));
-  await page.screenshot({ path: `test-results/${testInfo.project.name}-intro.png`, animations: 'disabled' });
-  await page.getByRole('link', { name: 'Start converting' }).click();
-  await expect(page).toHaveURL(/\/convert$/);
+  await page.screenshot({ path: `test-results/${testInfo.project.name}-pdf-hero.png`, animations: 'disabled' });
   await expect(page.getByRole('button', { name: 'Choose files', exact: true })).toBeEnabled();
+  await page.getByLabel('Choose files to convert').setInputFiles([
+    { name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('Folio converts this note to PDF.') },
+    { name: 'photo.png', mimeType: 'image/png', buffer: await sharp({ create: { width: 8, height: 8, channels: 3, background: '#5c8e69' } }).png().toBuffer() },
+  ]);
+  await expect(page.getByText('PNG files are converted on')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Convert to PDF', exact: true })).toBeDisabled();
+  await page.getByRole('button', { name: 'Remove photo.png' }).click();
+  await page.getByRole('button', { name: 'Convert to PDF', exact: true }).click();
+  await expect(page.getByText('1 file is ready to go.')).toBeVisible({ timeout: 60000 });
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download notes.txt' }).click();
+  expect((await downloadPromise).suggestedFilename()).toBe('notes.pdf');
+  await page.getByRole('link', { name: 'Everything else' }).click();
+  await expect(page).toHaveURL(/\/convert$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Everything else. A fresh format.' })).toBeVisible();
   expect(errors).toEqual([]);
 });
