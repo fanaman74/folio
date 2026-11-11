@@ -91,4 +91,3 @@ Integration tests verify real image/data/audio conversions, folder-preserving ZI
 `server/catalog.js` defines input/output routes and engine availability. `server/converters.js` implements the adapter contract: `{ input, output, work, from, to, engine, quality, signal, engines }`. Add an engine by discovering its executable, declaring only meaningful routes, and implementing the adapter with cancellation and timeouts. `server/app.js` owns uploads, job scheduling, downloads and deletion independently of the converter. The browser consumes the catalogue without needing hard-coded conversion routes.
 
 API: `GET /health`, `GET /api/capabilities`, multipart `POST /api/jobs` (`files`, JSON `manifest`, `quality`), `GET /api/jobs/:id`, `DELETE /api/jobs/:id`, `GET /api/jobs/:id/files/:fileId`, and `GET /api/jobs/:id/download`.
-# document-convertor
