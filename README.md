@@ -92,3 +92,7 @@ Integration tests verify real image/data/audio conversions, folder-preserving ZI
 
 API: `GET /health`, `GET /api/capabilities`, multipart `POST /api/jobs` (`files`, JSON `manifest`, `quality`), `GET /api/jobs/:id`, `DELETE /api/jobs/:id`, `GET /api/jobs/:id/files/:fileId`, and `GET /api/jobs/:id/download`.
 # document-convertor
+
+## Desktop app
+
+`desktop/` holds a separate Tauri 2 app that converts files to PDF entirely on your computer, with LibreOffice as an optional engine for office formats. See [desktop/README.md](desktop/README.md). It is not part of the Railway build.
