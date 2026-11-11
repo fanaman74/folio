@@ -6,6 +6,8 @@ Warm off-white background, white work surface, deep forest text, muted sage acce
 
 One authored entrance reveals the work surface; reduced motion disables it. All controls have visible focus, hover, busy, disabled and error states. Conversion progress reports actual completed files, and the active file is indeterminate. No fabricated conversion percentages.
 
-## Intro page
+## Two converter pages
 
-The user later asked for an animated intro page in the spirit of getrubric.app while keeping this palette and type. It lives at `/`; the converter moved to `/convert`. The hero has a triangulated sage background that gently deforms and highlights nearby facets on mouse movement, then settles when the pointer leaves. It stops updating while offscreen or hidden; reduced motion keeps its geometry static with gentle colour feedback. Touch devices show the static mesh. Motion also includes the word-by-word blur-up headline, a looping mock conversion in a perspective-tilted preview that flattens on scroll, a format marquee, scroll-revealed cards with a cursor spotlight, count-up stats built from real service limits, and a slowly rotating gradient on the closing call to action. Reduced motion shows every element in its final state.
+The user later asked for two pages and an animated hero, and named the superdesign skill for the visual design. Superdesign could not run in the build environment (its platform host is blocked), so this hero is a first pass that the superdesign work can replace.
+
+`/` is Docs to PDF: it accepts only documents, spreadsheets and presentations, fixes the output to PDF, and points other file types to the second page. `/convert` is Everything else, the full converter. A sticky header carries tabs between the two. Each page opens with an animated hero over the triangulated sage mesh: on the PDF page three office files feed one PDF sheet that fills page by page; on the other, format chips orbit a central engine that cycles through real conversion pairs. Headlines blur up word by word. Reduced motion shows every element in its final state.

@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '@fontsource-variable/inter';
 import App from './App';
-import Landing from './Landing';
 import './styles.css';
-import './landing.css';
+import './hero.css';
 
-// The intro lives at the root; the converter keeps its own path so it can be linked directly.
-const page = window.location.pathname.replace(/\/+$/, '') === '/convert' ? <App /> : <Landing />;
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode>{page}</React.StrictMode>);
+// Documents-to-PDF lives at the root; every other conversion keeps its existing /convert link.
+const mode = window.location.pathname.replace(/\/+$/, '') === '/convert' ? 'all' : 'pdf';
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><App mode={mode} /></React.StrictMode>);
