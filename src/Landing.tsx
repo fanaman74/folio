@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { CSSProperties, MouseEvent, ReactNode } from 'react';
 import { ArrowRight, BookOpen, Check, Database, FileText, Film, FolderOpen, Image, Layers2, LockKeyhole, Music2, ShieldCheck, SlidersHorizontal, Table2, Upload, ArrowDownToLine } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import HeroPolygons from './HeroPolygons';
+import { ThemeToggle, Waves } from './Waves';
 
 const families: { icon: LucideIcon; title: string; text: string; formats: string }[] = [
   { icon: Image, title: 'Images', text: 'Resize nothing, lose nothing. Switch photos and graphics in one pass.', formats: 'JPG · PNG · WebP · AVIF · TIFF · GIF' },
@@ -129,16 +129,16 @@ export default function Landing() {
   }, []);
 
   return <div className="landing">
-    <div className="landing-glow" aria-hidden="true" />
+    <Waves />
     <header className="landing-header">
       <a className="brand" href="/" aria-label="Folio home"><span className="brand-mark"><FileText size={22} /><ArrowRight size={13} /></span>folio<span className="brand-period">.</span></a>
       <nav aria-label="Intro navigation"><a href="#formats">Formats</a><a href="#how">How it works</a><a href="#privacy">Privacy</a></nav>
+      <ThemeToggle />
       <a className="button primary header-cta" href="/convert">Open converter <ArrowRight size={15} /></a>
     </header>
 
     <main>
       <section className="hero">
-        <HeroPolygons />
         <p className="eyebrow intro-fade"><span className="pulse" /> Private by design · no account needed</p>
         <h1 aria-label="Your files. A fresh format."><span className="line"><Words text="Your files." /></span><span className="line"><Words text="A fresh format." start={260} accent="fresh" /></span></h1>
         <p className="hero-copy intro-fade" style={{ '--delay': '700ms' } as CSSProperties}>Drop in one file or a whole folder, pick what it should become, and download the result. Folio converts on its own server and clears everything when you are done.</p>

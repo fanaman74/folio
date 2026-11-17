@@ -1,0 +1,124 @@
+/* Dark terminal look: slate canvas, neon green accent, mono labels, glassy tiles over drifting green hills.
+   Loaded after styles.css and landing.css, so it only adjusts what those files set. */
+
+html{background:var(--canvas);transition:background .3s;overflow-x:clip}
+.landing{overflow-x:visible}
+body{background:transparent;color:var(--ink)}
+::selection{background:#00ff8840;color:var(--ink)}
+::-webkit-scrollbar-track{background:var(--canvas)}
+::-webkit-scrollbar-thumb{background:var(--surface-3)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+
+/* Backdrop */
+.waves{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--canvas)}
+.waves.quiet{opacity:.55}
+.waves-dots{position:absolute;inset:0;background:radial-gradient(var(--dots) 1px,transparent 1.4px) 0 0/22px 22px;mask-image:radial-gradient(60% 50% at 15% 10%,#000,transparent 75%)}
+.wave{position:absolute;inset:-8%;transform-origin:50% 50%;animation:wave-drift var(--wave-dur) ease-in-out var(--wave-delay) infinite alternate;will-change:transform;filter:drop-shadow(0 -18px 40px var(--wave-shadow))}
+.wave svg{width:100%;height:100%;display:block}
+@keyframes wave-drift{0%{transform:translateZ(0) rotate(0)}50%{transform:translate3d(var(--wave-x),var(--wave-y),0) rotate(var(--wave-r))}100%{transform:translate3d(calc(var(--wave-x) * -.6),calc(var(--wave-y) * -.5),0) rotate(calc(var(--wave-r) * -1))}}
+
+/* Brand */
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:.04em;text-transform:lowercase;color:var(--green);text-shadow:0 0 12px color-mix(in srgb,var(--green) 60%,transparent);font-size:28px}
+.brand-period{color:var(--green)}
+.brand-mark{background:transparent;border:1.5px solid var(--green);color:var(--green);box-shadow:var(--glow),inset 0 0 12px #00ff8822;transform:none;border-radius:50%;width:34px;height:34px}
+.brand-mark>svg:first-child{width:17px}
+.brand-mark>svg:last-child{display:none}
+.footer-brand,.landing-footer .footer-brand{font-family:var(--mono);color:var(--green);letter-spacing:.04em}
+
+/* Shared type: mono for headings and labels */
+h1,h2,h3,.kicker,.eyebrow,.count,.field-label,.settings-heading h2,.queue-heading h2,.nav-link,.landing-header nav a,.marquee-track span,.step-number,.preview-chip b,.spotlight small,.privacy-tag,.help-link{font-family:var(--mono)}
+.kicker,.field-label,.settings-heading h2,.spotlight small,.nav-link,.landing-header nav a,.help-link,.privacy-tag,.eyebrow{text-transform:uppercase;letter-spacing:.14em}
+.kicker{color:var(--green);text-shadow:0 0 10px #00ff8833}
+
+/* Buttons: outlined, tinted, mono caps */
+.button{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-weight:600;border-radius:10px}
+.button.primary,.landing .button.primary{background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 40%,transparent);color:var(--green);box-shadow:none}
+.button.primary:hover:not(:disabled),.landing .button.primary:hover{background:color-mix(in srgb,var(--green) 20%,transparent);box-shadow:var(--glow)}
+.button.primary:disabled{background:var(--surface-2);border-color:var(--line);color:var(--muted)}
+.button.secondary,.landing .button.ghost{background:var(--surface-1);border:1px solid var(--line);color:var(--ink)}
+.button.secondary:hover,.landing .button.ghost:hover{border-color:var(--line-strong);color:var(--green);background:var(--surface-2)}
+.landing .button.light{background:var(--green);color:var(--on-green);border-color:var(--green);box-shadow:var(--glow)}
+.landing .button.light:hover{background:var(--green-glow)}
+.text-button{color:var(--green)}
+.text-button:hover:not(:disabled){color:var(--green-glow)}
+.theme-toggle{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface-1);color:var(--green);padding:0}
+.theme-toggle:hover{border-color:var(--line-strong);box-shadow:var(--glow)}
+
+/* Tiles */
+.workspace,.preview,.spotlight,.stats,.privacy-band,.format-library{background:var(--tile);border:0;box-shadow:var(--tile-shadow);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.conversion-settings,.preview-side,.preview-bar{background:color-mix(in srgb,var(--surface-1) 70%,transparent)}
+.dropzone{background:color-mix(in srgb,var(--canvas) 55%,transparent);border-color:var(--line-strong)}
+.dropzone.dragging{background:var(--green-soft);border-color:var(--green)}
+.upload-symbol .upload-file-back,.upload-symbol .upload-file-front{color:var(--green);fill:var(--surface-2)}
+.upload-symbol>span{border-color:var(--canvas);color:var(--on-green)}
+.privacy-note,.privacy-detail,.result-summary{background:var(--green-soft);color:var(--green)}
+.privacy-note strong,.privacy-detail h2{color:var(--ink)}
+.privacy-note p,.privacy-detail p,.result-summary p{color:var(--muted)}
+.segmented{background:var(--canvas)}
+.segmented button.selected{background:var(--surface-3);color:var(--green);box-shadow:none}
+.format-select-wrap,.search,.preview-field,.file-select select,.category-strip button,.preview-chip b{background:var(--canvas);border-color:var(--line);color:var(--ink)}
+.format-select-wrap:focus-within,.search:focus-within{outline:1px solid color-mix(in srgb,var(--green) 50%,transparent);outline-offset:0}
+.format-select-wrap select option,.file-select select option{background:var(--surface-1);color:var(--ink)}
+.format-icon,.setting-fact,.settings-heading{color:var(--green)}
+.file-icon,.preview-icon,.family-icon,.success-icon,.privacy-icon{background:var(--green-soft);color:var(--green)}
+.file-icon.video,.file-icon.audio{background:#7c6cff1a;color:#a99cff}
+.file-download{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 40%,transparent);color:var(--green)}
+.progress-track{background:var(--surface-3)}
+.progress-track>div{background:var(--green);box-shadow:var(--glow)}
+.nav-link.active{color:var(--green)}
+.nav-link.active:after{background:var(--green);box-shadow:var(--glow)}
+.site-header,.how-it-works{border-color:var(--line)}
+.page-intro h1{font-weight:700;letter-spacing:-.02em}
+
+/* Intro page */
+.landing-header{background:color-mix(in srgb,var(--canvas) 82%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent);margin-inline:calc((100% - 100vw) / 2);padding-inline:calc((100vw - 100%) / 2)}
+.landing-header nav{margin-right:6px}
+.landing-header .header-cta{min-height:34px;padding:8px 14px;font-size:11px;white-space:nowrap}
+.eyebrow{background:color-mix(in srgb,var(--surface-1) 80%,transparent);border-color:var(--line);color:var(--muted);font-size:11px}
+.pulse{background:var(--green);box-shadow:0 0 0 0 #00ff8866}
+.hero h1{font-weight:700;letter-spacing:-.04em;font-size:clamp(40px,6.6vw,88px)}
+.word.accent{color:var(--green);text-shadow:0 0 28px #00ff8859}
+.word.accent:after{background:color-mix(in srgb,var(--green) 35%,transparent)}
+.hero-copy{color:var(--muted)}
+.preview-files li{border-color:var(--line);background:color-mix(in srgb,var(--canvas) 40%,transparent)}
+.preview-files li.active{border-color:var(--line-strong);background:var(--green-soft)}
+.preview-files li.done{background:color-mix(in srgb,var(--green) 6%,transparent)}
+.preview-files li.done .preview-chip b:last-child{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.preview-download.on{background:var(--green);color:var(--on-green);box-shadow:var(--glow)}
+.preview-spinner{border-color:var(--surface-3);border-top-color:var(--green)}
+.marquee{border-color:var(--line);background:color-mix(in srgb,var(--canvas) 60%,transparent)}
+.marquee-track span{color:var(--muted)}
+.marquee-track span:after{background:var(--green);box-shadow:var(--glow)}
+.landing-section h2{font-weight:700;letter-spacing:-.03em}
+.spotlight:before{background:radial-gradient(260px circle at var(--x) var(--y),#00ff8814,transparent 70%)}
+.spotlight:hover{box-shadow:var(--tile-shadow),0 0 0 1px var(--line-strong)}
+.spotlight:hover .family-icon{background:var(--green);color:var(--on-green)}
+.count{color:var(--green);text-shadow:0 0 22px #00ff8859;font-weight:700}
+.stats>div+div{border-color:var(--line)}
+.steps:before{background:repeating-linear-gradient(90deg,var(--line-strong) 0 6px,transparent 6px 12px)}
+.step-number{background:var(--canvas);border-color:var(--line-strong);color:var(--green)}
+.step.in .step-number{background:var(--green);color:var(--on-green);box-shadow:var(--glow)}
+.step-icon{color:var(--green)}
+.privacy-band p:last-child{color:var(--muted)}
+.privacy-band ul{color:var(--ink)}
+.privacy-band li svg{color:var(--green)}
+.final-cta{background:#04130c;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.final-cta:before{background:conic-gradient(from 0deg,#05301e,#0a5c36,#05301e,#08472b,#05301e);opacity:.9}
+.final-cta:after{background:radial-gradient(#ffffff1a 1px,transparent 1.3px) 0 0/20px 20px}
+.final-cta h2{color:#e6f0ec}
+.final-cta h2 em{color:#00ff88;text-shadow:0 0 24px #00ff8866}
+.final-cta p{color:#b5c4bc}
+.landing-footer{border-color:var(--line);font-family:var(--mono);font-size:11px}
+.app>footer{font-family:var(--mono)}
+
+/* Light theme keeps the same structure, with softer hills and no neon glow. */
+:root.light .brand,:root.light .kicker,:root.light .word.accent,:root.light .count{text-shadow:none}
+:root.light .final-cta{background:#0b3b26}
+:root.light .waves.quiet{opacity:.7}
+
+@media (max-width:900px){.landing-header{margin-inline:-20px;padding-inline:20px}.landing-header .theme-toggle{margin-left:auto}.landing-header .header-cta{margin-left:0}}
+@media (max-width:420px){.landing-header .header-cta{font-size:0;gap:0;padding:8px 11px}}
+@media (prefers-reduced-motion:reduce){.wave{animation:none}}
+.site-header{gap:0}.site-header nav{margin-left:56px}.site-header .theme-toggle{margin-left:18px}
+@media(max-width:760px){.site-header nav{margin-left:26px}}
+@media(max-width:440px){.site-header nav{margin-left:20px}.site-header .theme-toggle{margin-left:auto;width:32px;height:32px}}
